@@ -2,14 +2,16 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from profiles_api import serializers
+
 """For viewsets API"""
 from rest_framework import viewsets
 """End for viewsets API"""
 
+"""for profiles API - it will ModelViewSet"""
+from profiles_api import models
+"""end for profiles API - it will ModelViewSet"""
 
 class HelloApiView(APIView):
-    """test"""
-
     serializer_class = serializers.HelloSerializer
 
     def get(self, request, format=None):
@@ -50,7 +52,7 @@ class HelloApiView(APIView):
 
 
 
-"""For viewsets API"""
+"""For Hello viewsets API"""
 class HelloViewSet(viewsets.ViewSet):
     serializer_class = serializers.HelloSerializer
 
@@ -89,4 +91,12 @@ class HelloViewSet(viewsets.ViewSet):
 
 
 
-"""End for viewsets API"""
+"""End for Hello viewsets API"""
+
+
+
+
+""" Profiles Model ViewSet"""
+class UserProfileViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.UserProfileSerializer
+    queryset = models.UserProfile.objects.all()
