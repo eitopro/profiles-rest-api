@@ -4,6 +4,7 @@ from rest_framework import status
 from profiles_api import serializers
 from rest_framework.authentication import TokenAuthentication
 from profiles_api import permissions
+from rest_framework import filters
 
 """For viewsets API"""
 from rest_framework import viewsets
@@ -75,7 +76,7 @@ class HelloViewSet(viewsets.ViewSet):
             return Response({'message': message})
         else:
             return Response(
-                serialzer.errors,
+                serializer.errors,
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -104,3 +105,5 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = models.UserProfile.objects.all()
     authentication_classes = (TokenAuthentication,)
     permission_classes = (permissions.UpdateOwnProfile,)
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name', 'email',)
