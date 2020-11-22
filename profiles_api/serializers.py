@@ -33,3 +33,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class HelloSerializer(serializers.Serializer):
     """Serializes a name input field for testing posting to the APIView"""
     name = serializers.CharField(max_length=10)
+
+
+class ProfileFeedItemSerialzer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ProfileFeedItem
+        fields = ('id', 'user_profile', 'status_text', 'created_on')
+        extra_kwargs = {'user_profile': {'read_only': True}}
